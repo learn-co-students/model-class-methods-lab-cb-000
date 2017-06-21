@@ -21,7 +21,7 @@ class Captain < ActiveRecord::Base
   end
 
   def self.non_sailors
-    where.not(name: sailors.pluck(:name))
+    where.not(name: sailors.select(:name))
   end
 
   def self.with_classifications
