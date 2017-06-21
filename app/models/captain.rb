@@ -14,10 +14,11 @@ class Captain < ActiveRecord::Base
   end
 
   def self.talented_seamen
-    with_classifications.
-      where(classifications: {name: %w(Sailboat Motorboat)}).
-      group('captains.name').
-      having('count(DISTINCT classifications.name) >= 2')
+    # with_classifications.
+    #   where(classifications: {name: %w(Sailboat Motorboat)}).
+    #   group('captains.name').
+    #   having('count(DISTINCT classifications.name) >= 2')
+    where(id:, sailors.select(:id), id: motorboaters.select(:id))
   end
 
   def self.non_sailors
