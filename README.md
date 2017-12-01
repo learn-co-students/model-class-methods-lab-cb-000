@@ -1,3 +1,11 @@
+Where patterns:
+
+<% @posts = Post.where(author: params[:author]) %>
+
+<% @posts = Post.where("created_at >=?", Time.zone.today.beginning_of_day) %>
+
+<% @posts = Post.where("created_at <?", Time.zone.today.beginning_of_day) %>
+
 
 # Model Class Methods Lab
 
