@@ -14,6 +14,8 @@ describe Captain do
       expect(Captain.sailors.pluck(:name)).to eq(captains)
     end
   end
+  
+  
 
   describe "::talented_seafarers" do
     it "returns captains of motorboats and sailboats" do
