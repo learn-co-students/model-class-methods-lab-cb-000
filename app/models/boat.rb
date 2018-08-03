@@ -4,33 +4,37 @@ class Boat < ActiveRecord::Base
   has_many    :classifications, through: :boat_classifications
 
   def Boat::first_five
-    # first five boats
-    where(id: (1..5))
+    limit(5)
   end
 
   def Boat::dinghy
-    # boats shorter than 20 feet
     where("length <?", 20)
   end
 
   def Boat::ship
-    # boats 20 feet or longer
     where("length >=?", 20)
   end
 
   def Boat::last_three_alphabetically
-    # last three boats in alphabetical order
+    order(name: :desc).limit(3)
   end
 
-  def Boat::without_a_captian
+  def Boat::without_a_captain
     where(captain_id: nil)
   end
 
   def Boat::sailboats
-    # all boats that are sailboats
+    includes(:classifications).where(classifications: { name: 'Sailboat' })
+  end
+  def Boat::with_three_classifications
+    joins(:classifications).group("boats.id").having("COUNT(*) = 3").select("boats.*")
   end
 
-  def Boat::with_three_classifications
-    # boats with three classifications
+  def Boat::non_sailboats
+    where.not(id: sailboats.pluck(:id))
+  end
+
+  def Boat::longest
+    order(length: :desc).first
   end
 end
