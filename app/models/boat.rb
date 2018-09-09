@@ -15,6 +15,10 @@ class Boat < ActiveRecord::Base
     where("length >= 20")
   end
 
+  def self.longest
+    all.order(length: :desc).first
+  end
+
   def self.last_three_alphabetically
     all.order(name: :desc).limit(3)
   end
