@@ -24,10 +24,19 @@ class Boat < ActiveRecord::Base
   end
 
   def self.sailboats
-    Boat.select('boats.name').joins(:boat_classifications, :classifications).find_by('classifications.name' => "sailboat")
+    includes(:classifications).where(classifications: { name: 'Sailboat' })
   end
 
   def self.with_three_classifications
+    joins(:classifications).group("boats.id").having("COUNT(*) = 3").select("boats.*")
+  end
+
+  def self.non_sailboats
+    where("id NOT IN (?)", self.sailboats.pluck(:id))
+  end
+
+  def self.longest
+    order('length DESC').first
   end
 
 end
