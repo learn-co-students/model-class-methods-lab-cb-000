@@ -23,4 +23,13 @@ class Boat < ActiveRecord::Base
   	where(captain_id: nil)
   end
 
+  def self.sailboats
+  	joins(:classifications).where(classifications: {name: "Sailboat"})
+  end
+
+  def self.with_three_classifications
+  	#returns boats with three classifications
+  	
+  end
+
 end
