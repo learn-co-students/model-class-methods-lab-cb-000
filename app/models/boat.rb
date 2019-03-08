@@ -28,7 +28,7 @@ class Boat < ActiveRecord::Base
   end
 
   def self.with_three_classifications
-    # binding.pry
+
     count_hash = joins(:classifications).group(:name).count
     count_hash.map do |k, v|
       if v == 3
