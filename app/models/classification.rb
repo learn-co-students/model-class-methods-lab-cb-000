@@ -4,11 +4,12 @@ class Classification < ActiveRecord::Base
 
 
   def self.my_all
-    binding.pry
+    all
   end
 
   def self.longest
-    binding.pry
+    Boat.order("length DESC").first.classifications
+
   end
 
 
